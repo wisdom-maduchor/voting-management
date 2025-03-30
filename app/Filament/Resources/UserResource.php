@@ -16,6 +16,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Components\FileUpload;
 
 class UserResource extends Resource
 {
@@ -30,6 +31,11 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+                FileUpload::make('users_csv')
+                    ->acceptedFileTypes(['text/csv'])
+                    ->disk('local')
+                    ->directory('uploads')
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -132,5 +138,12 @@ class UserResource extends Resource
 
 
 
+// use Filament\Forms\Components\FileUpload;
+
+// FileUpload::make('users_csv')
+//     ->acceptedFileTypes(['text/csv'])
+//     ->disk('local')
+//     ->directory('uploads')
+//     ->required(),
 
 
