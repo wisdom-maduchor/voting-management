@@ -31,11 +31,6 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                FileUpload::make('users_csv')
-                    ->acceptedFileTypes(['text/csv'])
-                    ->disk('local')
-                    ->directory('uploads')
-                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -50,22 +45,27 @@ class UserResource extends Resource
                         'voter' => 'Voter',
                     ])
                     ->required(),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
+                // Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('two_factor_secret')
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('two_factor_recovery_codes')
-                    ->columnSpanFull(),
-                Forms\Components\DateTimePicker::make('two_factor_confirmed_at'),
+                // Forms\Components\Textarea::make('two_factor_secret')
+                //     ->columnSpanFull(),
+                // Forms\Components\Textarea::make('two_factor_recovery_codes')
+                //     ->columnSpanFull(),
+                // Forms\Components\DateTimePicker::make('two_factor_confirmed_at'),
                 Forms\Components\TextInput::make('current_team_id')
                     ->numeric()
                     ->default(null),
-                Forms\Components\TextInput::make('profile_photo_path')
-                    ->maxLength(2048)
-                    ->default(null),
+                // Forms\Components\TextInput::make('profile_photo_path')
+                //     ->maxLength(2048)
+                //     ->default(null),
+                FileUpload::make('users_csv')
+                ->acceptedFileTypes(['text/csv'])
+                ->disk('local')
+                ->directory('uploads'),
+                // ->required(),
             ]);
     }
 
@@ -81,17 +81,17 @@ class UserResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('role')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('two_factor_confirmed_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('current_team_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('profile_photo_path')
-                    ->searchable(),
+                // Tables\Columns\TextColumn::make('email_verified_at')
+                //     ->dateTime()
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('two_factor_confirmed_at')
+                //     ->dateTime()
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('current_team_id')
+                //     ->numeric()
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('profile_photo_path')
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
