@@ -17,28 +17,25 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+// use Filament\Http\Middleware\RequirePassword;
 
-class VotingAdminPanelProvider extends PanelProvider
+class VoterPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('voting-admin')
-            ->path('voting-admin')
+            ->id('voter')
+            ->path('voter')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverResources(in: app_path('Filament/Voter/Resources'), for: 'App\\Filament\\Voter\\Resources')
+            ->discoverPages(in: app_path('Filament/Voter/Pages'), for: 'App\\Filament\\Voter\\Pages')
             ->pages([
-                // Pages\Dashboard::class,
-                // VotingAdminDashboard::class,
-                // ...other pages (if any)
-                \App\Filament\Pages\VotingAdminDashboard::class,
+                Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Voter/Widgets'), for: 'App\\Filament\\Voter\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
@@ -53,6 +50,9 @@ class VotingAdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+
+                // Authenticate::class,
+                // RequirePassword::class,
             ])
             // ->authMiddleware([
             //     Authenticate::class,
@@ -63,9 +63,8 @@ class VotingAdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 \Illuminate\Auth\Middleware\Authenticate::class,
             ]);
-            // ->loginRedirect(fn () => to_route('filament.voting-admin.pages.dashboard'))
-            // ->auth(fn () => auth()->check() && auth()->user()->role === 'admin');
-            
+            // ->loginRedirect(fn () => to_route('filament.voter.pages.dashboard'))
+            // ->auth(fn () => auth()->check() && auth()->user()->role === 'voter');
 
     }
 }

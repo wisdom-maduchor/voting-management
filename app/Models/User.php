@@ -9,16 +9,18 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 // use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel; 
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
-    use HasApiTokens;
+    // use HasApiTokens;
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     // use HasProfilePhoto;
     use Notifiable;
-    use TwoFactorAuthenticatable;
+    // use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -39,8 +42,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
+        // 'two_factor_recovery_codes',
+        // 'two_factor_secret',
     ];
 
     /**
@@ -57,11 +60,31 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+
+    // protected function casts(): array
+    // {
+    //     return [
+            // 'email_verified_at' => 'datetime',
+    //         'password' => 'hashed',
+    //     ];
+    // };
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
+    // public function canAccessPanel(): bool
+    public function canAccessPanel(Panel $panel): bool
+    // public function canAccessPanel(string $panel): bool
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        // return $this->role === 'admin';
+        // return match ($panel) {
+        //     'admin' => $this->role === 'admin',
+        //     'contestant' => $this->role === 'contestant',
+        //     'voter' => $this->role === 'voter',
+        //     default => false,
+        // };
+        
+        return true;
     }
 }
