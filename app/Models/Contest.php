@@ -12,4 +12,10 @@ class Contest extends Model
         'starts_at',
         'ends_at',
     ];
+    
+    public function contestants()
+    {
+        return $this->belongsToMany(Contestant::class, 'contest_contestant')
+                    ->withTimestamps();
+    }
 }

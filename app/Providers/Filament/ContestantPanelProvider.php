@@ -18,6 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 // use Filament\Http\Middleware\RequirePassword;
+use App\Filament\Contestant\Pages\ActiveContestsPage;
 
 class ContestantPanelProvider extends PanelProvider
 {
@@ -33,7 +34,9 @@ class ContestantPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Contestant/Resources'), for: 'App\\Filament\\Contestant\\Resources')
             ->discoverPages(in: app_path('Filament/Contestant/Pages'), for: 'App\\Filament\\Contestant\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                // Pages\Dashboard::class,
+                ActiveContestsPage::class,
+                // \App\Filament\Contestant\Pages\ActiveContestsPage::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Contestant/Widgets'), for: 'App\\Filament\\Contestant\\Widgets')
             ->widgets([

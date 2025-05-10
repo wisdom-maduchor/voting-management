@@ -39,9 +39,9 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
 
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('voter'); // 'admin', 'contestant', 'voter'
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->string('role')->default('voter'); // 'admin', 'contestant', 'voter'
+        // });
     }
 
     /**
@@ -49,9 +49,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('users');
-        // Schema::dropIfExists('password_reset_tokens');
-        // Schema::dropIfExists('sessions');
     }
 };
 
